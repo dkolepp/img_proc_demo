@@ -1,0 +1,39 @@
+---
+# THIS IS NOT THE FILE TO BE USED WITH GLS COURSES!
+# THIS IS SIMPLY TO KEEP THE FILES HERE IN GOOD SHAPE...
+exclude: '^$'
+fail_fast: true
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.5.0
+    hooks:
+      - id: trailing-whitespace
+        files: \.(xml|yaml|yml)$
+      - id: check-yaml
+        files: \.(yaml|yml)$
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.21.0
+    hooks:
+      - id: yamllint
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.22.0
+    hooks:
+      - id: markdownlint
+        types: [markdown]
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 2.0.0
+    hooks:
+      - id: script-must-have-extension
+      - id: shellcheck
+        name: shellcheck(linter)
+        types: [shell]
+        stages: [manual]
+
+  - repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
+    rev: v0.1.0
+    hooks:
+      - id: dockerfilelint
+        files: Dockerfile

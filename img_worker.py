@@ -4,6 +4,7 @@ import rediswq
 import img_lib
 
 host = os.getenv("REDIS_SERVICE_HOST", "redis")
+input_dir = os.getenv("IMG_DIR", "/data")
 
 work_queue_name = os.getenv("QUEUE_NAME", "uploads")
 queue = rediswq.RedisWQ(name=work_queue_name, host=host)
@@ -17,7 +18,7 @@ while not queue.empty():
     item = queue.lease(lease_secs=10, block=True, timeout=2)
 
     if item is not None:
-        filename_to_process = item.decode("utf-8")
+        filename_to_process = os.path.join(input_dir, item.decode("utf-8"))
         print("Working on " + filename_to_process)
 
         # Use a backend image processing library
