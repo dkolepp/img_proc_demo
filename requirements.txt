@@ -1,7 +1,6 @@
-redis
+tensorflow == 1.14
 numpy
-tensorflow
 keras
 opencv-python
 imageai
-
+redis
