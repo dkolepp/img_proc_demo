@@ -43,8 +43,9 @@ def get_out_file(fullname):
 
 def process_file(fname):
     fullname = os.path.realpath(fname)
+    basename = os.path.basename(fullname)
     outfile = get_out_file(fullname)
-    outfile_csv = os.path.splitext(outfile)[0] + ".csv"
+    outfile_csv = os.path.splitext(outfile)[0] + ".txt"
 
     LOGGER.info("Processing file: %s", fullname)
 
@@ -57,7 +58,7 @@ def process_file(fname):
     headers=["filename","object_type","probability","x0","y0","x1","y1"]
     for eachObject in detections:
         record = {
-            headers[0]: fullname,
+            headers[0]: basename,
             headers[1]: eachObject["name"],
             headers[2]: eachObject["percentage_probability"],
             headers[3]: eachObject["box_points"][0],
@@ -67,13 +68,13 @@ def process_file(fname):
         }
         objectsFound.append(record)
         LOGGER.info("%s", record)
-    
+
 
     if len(objectsFound) > 0:
         LOGGER.info("Writing CSV file: %s", outfile_csv)
         with open(outfile_csv, 'w') as csvfile:
             csvwriter = csv.DictWriter(csvfile, headers)
-            csvwriter.writeheader()
+            #csvwriter.writeheader()
             csvwriter.writerows(objectsFound)
     else:
         LOGGER.info("No object detections for: %s", fullname)
