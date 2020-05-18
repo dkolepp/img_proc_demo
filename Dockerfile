@@ -17,6 +17,9 @@ RUN  yum install -y \
 
 RUN pip3 install -r requirements.txt
 
+RUN curl -L -o yolo.h5 \
+  https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5
+
 ADD img_lib.py img_worker.py rediswq.py yolo.h5 /app-root/src/
 
 
