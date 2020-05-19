@@ -74,7 +74,7 @@ def process_file(fname):
         LOGGER.info("Writing CSV file: %s", outfile_csv)
         with open(outfile_csv, 'w') as csvfile:
             csvwriter = csv.DictWriter(csvfile, headers)
-            #csvwriter.writeheader()
+            csvwriter.writeheader()
             csvwriter.writerows(objectsFound)
     else:
         LOGGER.info("No object detections for: %s", fullname)
